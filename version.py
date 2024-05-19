@@ -1,9 +1,9 @@
 short_name = "lamstudio"
 name = "LambdaStudio"
 major = 0
-minor = 1
+minor = 2
 patch = 0
-status = "pre-alpha"
+status = "p"
 module_config = ""
 website = "https://godotengine.org"
 docs = "latest"
