@@ -428,6 +428,7 @@ void ActionMapEditor::update_action_list(const Vector<ActionInfo> &p_action_info
 		// Update Tree...
 
 		TreeItem *action_item = action_tree->create_item(root);
+		ERR_FAIL_NULL(action_item);
 		action_item->set_meta("__action", action_info.action);
 		action_item->set_meta("__name", action_info.name);
 
@@ -505,6 +506,9 @@ void ActionMapEditor::update_action_list(const Vector<ActionInfo> &p_action_info
 			event_item->set_button_color(2, 1, Color(1, 1, 1, 0.75));
 		}
 	}
+
+	// Update UI.
+	clear_all_search->set_disabled(action_list_search->get_text().is_empty() && action_list_search_by_event->get_event().is_null());
 }
 
 void ActionMapEditor::show_message(const String &p_message) {
@@ -550,8 +554,9 @@ ActionMapEditor::ActionMapEditor() {
 	action_list_search_by_event->connect(SceneStringName(focus_exited), callable_mp(this, &ActionMapEditor::_on_filter_unfocused));
 	top_hbox->add_child(action_list_search_by_event);
 
-	Button *clear_all_search = memnew(Button);
+	clear_all_search = memnew(Button);
 	clear_all_search->set_text(TTR("Clear All"));
+	clear_all_search->set_tooltip_text(TTR("Clear all search filters."));
 	clear_all_search->connect(SceneStringName(pressed), callable_mp(action_list_search_by_event, &EventListenerLineEdit::clear_event));
 	clear_all_search->connect(SceneStringName(pressed), callable_mp(action_list_search, &LineEdit::clear));
 	top_hbox->add_child(clear_all_search);
@@ -600,7 +605,7 @@ ActionMapEditor::ActionMapEditor() {
 	action_tree->set_column_custom_minimum_width(1, 80 * EDSCALE);
 	action_tree->set_column_expand(2, false);
 	action_tree->set_column_custom_minimum_width(2, 50 * EDSCALE);
-	action_tree->connect("item_edited", callable_mp(this, &ActionMapEditor::_action_edited));
+	action_tree->connect("item_edited", callable_mp(this, &ActionMapEditor::_action_edited), CONNECT_DEFERRED);
 	action_tree->connect("item_activated", callable_mp(this, &ActionMapEditor::_tree_item_activated));
 	action_tree->connect("button_clicked", callable_mp(this, &ActionMapEditor::_tree_button_pressed));
 	main_vbox->add_child(action_tree);
