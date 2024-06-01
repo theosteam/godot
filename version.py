@@ -1,4 +1,4 @@
-short_name = "LS"
+short_name = "lamstudio"
 name = "LambdaStudio"
 major = 0
 minor = 2
