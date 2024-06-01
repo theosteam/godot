@@ -1,8 +1,8 @@
-short_name = "lamstudio"
+short_name = "lambdastudio"
 name = "LambdaStudio"
 major = 0
 minor = 2
-patch = 1
+patch = 2
 status = "alpha"
 module_config = ""
 website = "https://github.com/theosteam/godot"
