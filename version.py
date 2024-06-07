@@ -1,4 +1,4 @@
-short_name = "lamstudio"
+short_name = "godot"
 name = "LambdaStudio"
 major = 4
 minor = 3
